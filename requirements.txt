@@ -11,5 +11,3 @@ scikit-learn
 python-multipart
 ipywidgets
 camel-tools
-os
-re

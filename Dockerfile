@@ -1,30 +1,25 @@
-# Use the official Python image as a base
-FROM python:3.10-slim
+# Use the official Python 3.10.11 image
+FROM python:3.10.11-slim
 
 # Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV PORT=8000
 
-# Install required system packages
-RUN apt-get update && \
-    apt-get install -y libgomp1 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*  
+# Set the working directory to the root
+WORKDIR /
 
-# Create a working directory
-WORKDIR /app
+# Copy requirements.txt to the root directory
+COPY requirements.txt /
 
-# Copy the requirements file
-COPY requirements.txt /app/
-
-# Install Python dependencies
+# Install dependencies
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy the application files
-COPY . /app
+# Copy the application files to the root directory
+COPY . /
 
-# Expose the port FastAPI will run on
-EXPOSE $PORT
+# Expose port (optional, based on your FastAPI settings)
+EXPOSE 8000
 
-# Command to run the application
+# Command to run the FastAPI app (adjust as needed)
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
