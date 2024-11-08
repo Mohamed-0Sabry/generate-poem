@@ -9,7 +9,7 @@ ENV PORT=8000
 RUN apt-get update && \
     apt-get install -y libgomp1 && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*  
 
 # Create a working directory
 WORKDIR /app
