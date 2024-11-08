@@ -11,16 +11,9 @@ WORKDIR /
 # Copy requirements.txt to the root directory
 COPY requirements.txt /
 
-# Add dependencies for building camel-kenlm
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    cmake \
-    libkenlm-dev
-
-# Upgrade pip and install Python dependencies
+# Install dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
 
 # Copy the application files to the root directory
 COPY . /
